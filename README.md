@@ -59,7 +59,9 @@ python manage.py runserver 127.0.0.1:8000
 
 you can test with these endpoints and they have descriptions of the fields as well if you need a data representation you can also refer to [the admin panel](http://127.0.0.1:8000/admin)
 
-
+## storage 
+postgres and the DB name is "connect4"
+if you wish to change the name please refre to the config dir  in a file called settings.py line 100
 
 
 
