@@ -76,8 +76,10 @@ to install packages.
 then run
 
 ```bash
-npm run dev to compile the frontend code
+npm run dev
 ```
+
+to compile the frontend code
 
 then go to 127.0.0.1:8000 and everything should be working Correctly
 
