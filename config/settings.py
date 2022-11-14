@@ -16,12 +16,12 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-env_file_path = os.path.join(BASE_DIR, '.env')
+env_file_path = os.path.join(BASE_DIR, '..env')
 if os.path.exists(env_file_path):
     environ.Env.read_env(env_file=env_file_path)
     
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = "django-insecure-8b&4gj4x%@(v0h%8^#1tgm$$s-80rih5937318ntcyzdb4fh+6"
 
 DEBUG = True
 
@@ -98,8 +98,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'connect4',
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
+        'USER': 'postgres',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',
     }

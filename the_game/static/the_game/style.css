@@ -1,9 +1,7 @@
 
 
 .home-background{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url(images/picnic.jpg);
-    background-position: center;
-    background-size: cover;
+    background: green;
     height: 100vh;
 }
 
@@ -26,4 +24,9 @@ a:hover {
 
 header a{
     text-decoration: none;
+}
+
+.middle-con {
+    background: blue;
+    margin: auto 0;
 }
