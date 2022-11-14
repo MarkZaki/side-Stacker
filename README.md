@@ -53,22 +53,6 @@ python manage.py runserver 127.0.0.1:8080
 ```
 
 
-if you don't have the provided test sqllite DB 
-you can test running 
-
-to seed users
-```bash
-python manage.py seed_users --number 1000
-```
-to seed posts
-```bash
-python manage.py seed_posts --number 1000
-```
-to seed subs
-```bash
-python manage.py seed_subs --number 500
-```
-
 
 ## usage  and testing 
 
