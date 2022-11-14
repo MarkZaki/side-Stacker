@@ -15,18 +15,18 @@ export default function Player(props) {
     icon = (
       <ion-icon
         name="person-outline"
-        class="icon-person icon-player1"
+        className="icon-person icon-player1"
       ></ion-icon>
     );
-    playerTitle = <h3 class="player-title">Player 1</h3>;
+    playerTitle = <h3 className="player-title">Player 1</h3>;
   } else {
     icon = (
       <ion-icon
         name="person-outline"
-        class="icon-person icon-player2"
+        className="icon-person icon-player2"
       ></ion-icon>
     );
-    playerTitle = <h3 class="player-title"> Player 2</h3>;
+    playerTitle = <h3 className="player-title"> Player 2</h3>;
   }
 
   let moveDescription = null;
@@ -39,7 +39,7 @@ export default function Player(props) {
   }
 
   return (
-    <div class="player">
+    <div className="player">
       {icon}
       {playerTitle}
       {moveDescription}

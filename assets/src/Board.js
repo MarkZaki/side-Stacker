@@ -1,5 +1,5 @@
 import React from "react";
-import Column from "./Column";
+import Row from "./Row";
 import { IsTurn } from "./Connect4Utility";
 
 function Board(props) {
@@ -7,12 +7,12 @@ function Board(props) {
   const columns = props.board.map((col) => {
     counter += 1;
     return (
-      <Column
+      <Row
         player={props.player}
         isTurn={IsTurn(props.board, props.player)}
         value={col}
         key={counter}
-        colNum={counter}
+        rowNum={counter}
         clickHandler={props.SendMove}
       />
     );

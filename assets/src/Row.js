@@ -1,7 +1,7 @@
 import React from "react";
 import Piece from "./Piece";
 
-class Column extends React.Component {
+class Row extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -33,17 +33,23 @@ class Column extends React.Component {
     }
 
     var key = 0;
-    const pieces = valueCopy.map((item) => {
+    const pieces = valueCopy.map((item, index) => {
       key += 1;
-      return <Piece key={key} value={item} />;
+      return (
+        <Piece
+          coordinates={{ row: this.props.rowNum, column: key - 1 }}
+          clickHandler={this.props.clickHandler}
+          key={key}
+          value={item}
+        />
+      );
     });
     return (
       <div
-        data-testid="column"
+        data-testid="row"
         className="column"
-        onMouseOver={() => this.OnMouseOverHandler()}
-        onMouseOut={() => this.OnMouseExitHandler()}
-        onClick={() => this.props.clickHandler(this.props.colNum)}
+        //onMouseOver={() => this.OnMouseOverHandler()}
+        // onMouseOut={() => this.OnMouseExitHandler()}
       >
         {pieces}
       </div>
@@ -51,4 +57,4 @@ class Column extends React.Component {
   }
 }
 
-export default Column;
+export default Row;

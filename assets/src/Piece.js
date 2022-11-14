@@ -25,7 +25,10 @@ function Piece(props) {
   classN += " piece";
 
   return (
-    <div className="boarder">
+    <div
+      className="boarder"
+      onClick={() => props.clickHandler(props.coordinates)}
+    >
       <div className={classN} data-testid="piece" />
     </div>
   );

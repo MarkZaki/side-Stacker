@@ -5,7 +5,7 @@ import { IsTurn, IsWinner } from "./Connect4Utility.js";
 import Player from "./Player";
 
 const game_id = document.getElementById("game_id").textContent;
-const game_link = document.getElementById("game_link").textContent; //this should be like http://0.0.0.0:8000/game/2
+const game_link = document.getElementById("game_link").textContent;
 const client = new W3CWebSocket(
   "ws://" + window.location.host + "/ws/" + game_id + "/"
 );
@@ -22,7 +22,7 @@ class App extends React.Component {
       console.log("Websocket Client Connected");
     };
     client.onmessage = (message) => {
-      console.log(message);
+      console.log(message.data);
       const dataFromServer = JSON.parse(message.data);
       this.setState({
         board: dataFromServer.board,
@@ -34,17 +34,20 @@ class App extends React.Component {
     };
   }
 
-  SendMove(id) {
+  SendMove(cord) {
+    console.log(cord);
     if (
       IsTurn(this.state.board, this.state.player) &&
-      IsWinner(this.state.board) == 0
+      IsWinner(this.state.board) == 0 &&
+      (cord.column === 0 || cord.column === 6)
     ) {
-      client.send(
-        JSON.stringify({
-          column: id,
-          player: this.state.player,
-        })
-      );
+      const data = {
+        row: cord.row,
+        side: cord.column === 0 ? "Left" : "Right",
+        player: this.state.player,
+      };
+      console.log(data);
+      client.send(JSON.stringify(data));
     } else {
       console.log("Not your turn");
     }
