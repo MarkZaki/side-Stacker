@@ -1,8 +1,5 @@
-# news feed
-
-we have two main apps here profiles which handles user related operations
-and posts which handles all the posts related operations 
-
+# connect 4
+ one app in use and it is called the_game
 ## Installation
 
 to install we have to options normal pip installation and docker installation:
@@ -74,19 +71,12 @@ python manage.py seed_subs --number 500
 
 
 ## usage  and testing 
-please refer to the provided [postman collection file](https://documenter.getpostman.com/view/14647839/2s8479ybmz) "news feed.postman_collection.json"
 
-you can easily import it in your post man and you will find 2 folders one for posts and one for profiles 
 
 you can test with these endpoints and they have descriptions of the fields as well if you need a data representation you can also refer to [the admin panel](http://127.0.0.1:8080/admin)
 
 
-there is also a swagger documentation which will list the endpoints at [here](http://127.0.0.1:8080/)
 
-note that it will only list the endpoints with no query parameters since query parameters are not officially supported by swagger for DRF yet 
-
-
-for further explanation please refrere to the doc strings on the views and the doc.md file
 
 
 ## License
