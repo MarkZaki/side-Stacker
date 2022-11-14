@@ -24,6 +24,7 @@ class Connect4Game(models.Model):
         if IsTurn(self.game_state, player):
             row_value = self.game_state[row] #ex row 0 [0,0,0,0,0,0,0] has 7 0s which are cols
             if side == 'Right':
+                print("adding to the right")
                 index = -1
                 for col in reversed(row_value):
                     if col == 0 :
@@ -35,9 +36,10 @@ class Connect4Game(models.Model):
                 row_value[index] = player
                 self.game_state[row] = row_value
                 self.save()
-                index = -1
+                # index = -1
                 return True
             elif side == 'Left':
+                print("adding to the left")
                 index = -1
                 for col in row_value:
                     if col == 0 :
@@ -48,6 +50,6 @@ class Connect4Game(models.Model):
                 row_value[index] = player 
                 self.game_state[row] = row_value
                 self.save()
-                index = -1
+                # index = -1
                 return True
             return False
