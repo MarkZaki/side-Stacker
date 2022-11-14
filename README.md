@@ -46,10 +46,10 @@ finally run the following to install the requirements  make sure you are in the 
 pip install -r requirments.txt
 ```
 
-now you can run the server using the [post man collection ](https://documenter.getpostman.com/view/14647839/2s8479ybmz)assumes you are running  on port 8080
+
 
 ```bash
-python manage.py runserver 127.0.0.1:8080
+python manage.py runserver 127.0.0.1:8000
 ```
 
 
@@ -57,7 +57,7 @@ python manage.py runserver 127.0.0.1:8080
 ## usage  and testing 
 
 
-you can test with these endpoints and they have descriptions of the fields as well if you need a data representation you can also refer to [the admin panel](http://127.0.0.1:8080/admin)
+you can test with these endpoints and they have descriptions of the fields as well if you need a data representation you can also refer to [the admin panel](http://127.0.0.1:8000/admin)
 
 
 
