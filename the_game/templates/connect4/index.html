@@ -1,0 +1,10 @@
+{% extends 'connect4/base.html' %}
+
+{% block content %}
+<h1>Let's play Connect 4!</h1>
+<p class="lead">Start a game to play with your friends</p>
+<p class="lead">
+  <a href="{% url 'setup' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Play Now</a>
+</p>
+
+{% endblock %}

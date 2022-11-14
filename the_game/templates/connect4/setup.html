@@ -1,0 +1,15 @@
+{% extends 'connect4/base.html' %}
+
+{% block content %}
+<h1>Set up your game</h1>
+<p class="lead">Invite your friends later</p>
+<form class="lead" method="POST" action="{% url 'creategame' %}" >
+    {% csrf_token %}
+    <input type="radio" id="player1" name="player" value="1" checked>
+    <label for="player1">Player 1</label>
+    <input type="radio" id="player2" name="player" value="2">
+    <label for="player2">Player 2</label>
+    <input type="submit" value="Let's Play!">
+</form>
+
+{% endblock %}
