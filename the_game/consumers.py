@@ -59,7 +59,7 @@ class Connect4Consumer(WebsocketConsumer):
 
     #recieve message from websocket
     def receive(self, text_data):
-        # print(text_data)
+        print(text_data)
         text_data_json = json.loads(text_data)
         row  = text_data_json['row']
         side = text_data_json['side']
