@@ -59,13 +59,13 @@ class Connect4Consumer(WebsocketConsumer):
 
     #recieve message from websocket
     def receive(self, text_data):
-        print(text_data)
+        # print(text_data)
         text_data_json = json.loads(text_data)
-        column  = text_data_json['column']
-        side = 'Right'#text_data_json['side']
+        row  = text_data_json['row']
+        side = text_data_json['side']
         player = text_data_json['player'] 
         game = Connect4Game.objects.get(pk = self.game_id) 
-        if not game.TryMove(player,column,side):
+        if not game.TryMove(player,row,side):
             print("Move was not allowed")
         self._makeEveryoneUpdate() 
 
