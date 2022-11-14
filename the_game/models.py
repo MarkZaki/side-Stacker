@@ -22,33 +22,49 @@ class Connect4Game(models.Model):
 
     def TryMove(self, player, row,side):
         if IsTurn(self.game_state, player):
-            row_value = self.game_state[row] #ex row 0 [0,0,0,0,0,0,0] has 7 0s which are cols
+            row_value = self.game_state[row] #ex row 0 [1,0,0,0,0,0,0] has 7 0s which are cols
             if side == 'Right':
-                print("adding to the right")
+                # print("adding to the right")
                 index = -1
-                for col in reversed(row_value):
+                for elem_number,col in reversed(list(enumerate(row_value))):
                     if col == 0 :
+                        # print('-------------------')
+                        # print('colvalue',col)
+                        # print('colindex',elem_number)
+                        # print('index',index)
+                        # print('-------------------')
                         index += 1
+                        break
                 if index == -1:
                     #row full
                     print("row is full")
                     return False
-                row_value.insert(0, player)
+                # print('inserting in index num',elem_number)
+                # try
+                row_value.pop(elem_number)
+                row_value.append (player)
                 self.game_state[row] = row_value
                 self.save()
                 # index = -1
                 return True
             elif side == 'Left':
-                print("adding to the left")
+                # print("adding to the righ")
                 index = -1
-                for col in row_value:
+                for elem_number,col in list(enumerate(row_value)):
+                    # print('-------------------')
+                    # print('col',col)
+                    # print('colindex',elem_number)
+                    # print('index',index)
+                    # print('-------------------')
                     if col == 0 :
                         index += 1
+                        break
                 if index == -1:
                     print("row is full")
                     return False
-                print(index)
-                row_value.append (player) 
+                # print('inserting in index num',elem_number)
+                row_value.pop(elem_number)
+                row_value.insert(0,player )
                 self.game_state[row] = row_value
                 self.save()
                 # index = -1
