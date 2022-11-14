@@ -35,6 +35,7 @@ class Connect4Game(models.Model):
                 row_value[index] = player
                 self.game_state[row] = row_value
                 self.save()
+                index = -1
                 return True
             elif side == 'Left':
                 index = -1
@@ -47,5 +48,6 @@ class Connect4Game(models.Model):
                 row_value[index] = player 
                 self.game_state[row] = row_value
                 self.save()
+                index = -1
                 return True
             return False
