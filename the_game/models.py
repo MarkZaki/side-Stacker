@@ -33,7 +33,7 @@ class Connect4Game(models.Model):
                     #row full
                     print("row is full")
                     return False
-                row_value[index] = player
+                row_value.insert(0, player)
                 self.game_state[row] = row_value
                 self.save()
                 # index = -1
@@ -47,7 +47,8 @@ class Connect4Game(models.Model):
                 if index == -1:
                     print("row is full")
                     return False
-                row_value[index] = player 
+                print(index)
+                row_value.append (player) 
                 self.game_state[row] = row_value
                 self.save()
                 # index = -1
