@@ -10,6 +10,8 @@ ADD . .
 
 
 RUN pip install -r requirments.txt
+RUN python manage.py makemigreations
+RUN python manage.py migrate
 
 
 EXPOSE 8000

@@ -23,8 +23,8 @@ class Connect4Game(models.Model):
     def TryMove(self, player, row,side):
         if IsTurn(self.game_state, player):
             row_value = self.game_state[row] #ex row 0 [0,0,0,0,0,0,0] has 7 0s which are cols
-            index = -1
             if side == 'Right':
+                index = -1
                 for col in reversed(row_value):
                     if col == 0 :
                         index += 1
@@ -37,6 +37,7 @@ class Connect4Game(models.Model):
                 self.save()
                 return True
             elif side == 'Left':
+                index = -1
                 for col in row_value:
                     if col == 0 :
                         index += 1

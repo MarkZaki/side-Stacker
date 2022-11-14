@@ -6,17 +6,7 @@ the_game directory  is where the magic happens
 
 covered in the readme.md file 
 
-## load testing 
-load testing was done using locust.py the reports are in the root directory of this porject under the names
-### "connect4 load test report.HTML" 
-and 
-### "connect4 load test report.csv"
 
-you can also rerun the test but navigating to the root dir of the project and 
-
-```bash
-locust -f locust.py --host http://127.0.0.1:8080/ --users 100 --spawn-rate 50
-```
 ## function 
 
 
