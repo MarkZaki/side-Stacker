@@ -26,10 +26,12 @@ class Row extends React.Component {
   render() {
     let valueCopy = this.props.value.slice();
     if (this.state.hovering && this.props.isTurn) {
-      const indexOfEmptyPiece = valueCopy.lastIndexOf(0);
-      if (indexOfEmptyPiece !== -1) {
-        valueCopy[indexOfEmptyPiece] = this.props.player === 1 ? 3 : 4;
-      }
+      // const indexOfEmptyPiece = valueCopy[0];
+      // if (indexOfEmptyPiece !== -1) {
+      //   valueCopy[indexOfEmptyPiece] = this.props.player === 1 ? 3 : 4;
+      // }
+      valueCopy[0] = this.props.player === 1 ? 3 : 4;
+      valueCopy[6] = this.props.player === 1 ? 3 : 4;
     }
 
     var key = 0;
@@ -47,9 +49,9 @@ class Row extends React.Component {
     return (
       <div
         data-testid="row"
-        className="column"
-        //onMouseOver={() => this.OnMouseOverHandler()}
-        // onMouseOut={() => this.OnMouseExitHandler()}
+        className="row"
+        onMouseOver={() => this.OnMouseOverHandler()}
+        onMouseOut={() => this.OnMouseExitHandler()}
       >
         {pieces}
       </div>

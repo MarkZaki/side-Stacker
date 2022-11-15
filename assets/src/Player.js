@@ -47,7 +47,7 @@ export default function Player(props) {
             : null,
         }}
       >
-        <div class="card-header">
+        <div className="card-header">
           {icon}
           {playerTitle}
         </div>

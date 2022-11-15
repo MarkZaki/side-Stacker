@@ -3,9 +3,8 @@
 3 - Panal Info for the game [X]
 4 - Board Design [x]
 5 - Turns Indicator [X]
+6 - Toaster for Errors [X]
+7 - Hovering [X]
+8 - Implement POPUP
 
 ---
-
-1 - Implement POPUP
-2 - Hovering
-8 - Toaster for Errors
