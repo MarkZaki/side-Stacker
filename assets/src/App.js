@@ -3,6 +3,10 @@ import Board from "./Board";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { IsTurn, IsWinner } from "./Connect4Utility.js";
 import Player from "./Player";
+import Info from "./Info";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Modal from "./Modal";
 
 const game_id = document.getElementById("game_id").textContent;
 const game_link = document.getElementById("game_link").textContent;
@@ -19,7 +23,16 @@ class App extends React.Component {
 
   componentDidMount() {
     client.onopen = () => {
-      console.log("Websocket Client Connected");
+      toast.info("🦄 Connected!", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     };
     client.onmessage = (message) => {
       console.log(message.data);
@@ -27,10 +40,20 @@ class App extends React.Component {
       this.setState({
         board: dataFromServer.board,
         player: dataFromServer.player,
+        opponentConnected: dataFromServer.opponentConnected,
       });
     };
     client.onclose = () => {
-      console.log("Websocket client disconnected");
+      toast.info("Disconnected!", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     };
   }
 
@@ -38,18 +61,39 @@ class App extends React.Component {
     console.log(cord);
     if (
       IsTurn(this.state.board, this.state.player) &&
-      IsWinner(this.state.board) == 0 &&
-      (cord.column === 0 || cord.column === 6)
+      IsWinner(this.state.board) == 0
     ) {
-      const data = {
-        row: cord.row,
-        side: cord.column === 0 ? "Left" : "Right",
-        player: this.state.player,
-      };
-      console.log(data);
-      client.send(JSON.stringify(data));
+      if (cord.column === 0 || cord.column === 6) {
+        const data = {
+          row: cord.row,
+          side: cord.column === 0 ? "Left" : "Right",
+          player: this.state.player,
+        };
+        console.log(data);
+        client.send(JSON.stringify(data));
+      } else {
+        toast("Please Click on The First Or The Last Column", {
+          position: "bottom-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     } else {
-      console.log("Not your turn");
+      toast("Not Your Turn!", {
+        position: "bottom-right",
+        autoClose: 500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   }
 
@@ -58,21 +102,23 @@ class App extends React.Component {
       console.log("board is null");
       return <h1>waiting to connect</h1>;
     }
+
     const isWinner = IsWinner(this.state.board);
-
-    if (IsTurn(this.state.board, this.state.player)) {
-    }
-
     let text;
     if (isWinner === this.state.player) {
-      text = "You won!!";
+      text = <Modal text={{ content: "You Won!", color: "green" }} />;
     } else if (isWinner === 3) {
-      text = "Tie. Play again?";
+      text = <Modal text={{ content: "It's a tie!", color: "orange" }} />;
     } else if (isWinner !== 0) {
-      text = "You lose. Play again?";
+      text = <Modal text={{ content: "You Lost!", color: "red" }} />;
     }
     return (
       <div>
+        <Info
+          isTurn={IsTurn(this.state.board, this.state.player)}
+          opponentConnected={this.state.opponentConnected}
+          player={this.state.player}
+        />
         <Player
           isTurn={IsTurn(this.state.board, 1)}
           isPlayer1={true}
@@ -88,10 +134,8 @@ class App extends React.Component {
           isPlayer1={false}
           areYouThisPlayer={2 === this.state.player}
         />
-        {
-          // TODO: Turn this into A POPUP!!
-          // TODO: <p class="message"> {text} </p>
-        }
+        <ToastContainer />
+        {text}
       </div>
     );
   }
