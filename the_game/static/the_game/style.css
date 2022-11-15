@@ -48,6 +48,7 @@ header a:hover {
     left: 0;
     width: 100%;
     padding: .6rem;
+    z-index: 9999;
 }
 
 .jumbotron {

@@ -33,7 +33,9 @@ code {
 .boarder{
 	height:45px;
 	width:45px;
-	background-color:green;
+	background-color:#4d2312;
+	padding: 2px;
+	border: 1px solid rgb(65, 65, 65);
 }
 
 .piece{
@@ -50,7 +52,7 @@ code {
 }
 
 .player-one-piece{
-	background-color: rgb(0,0,0);
+	background-color: #121212;
 }
 
 .player-one-piece-possible{
@@ -62,7 +64,7 @@ code {
 }
 
 .player-two-piece{
-	background-color: rgb(255,0,0);
+	background-color: #e74c3c;
 }
 
 .board{
@@ -84,7 +86,7 @@ code {
 }
 
 .icon-player1{
-	background-color: rgb(0,0,0);
+	background-color: #333;
 }
 
 .icon-player2{
@@ -96,5 +98,60 @@ code {
 }
 
 .player{
+		color: #333;
+}
 
+.player .card {
+	width: 30%;
+	margin: 20px auto;
+	transition: all ease-in-out 0.5s;
+}
+
+.player .card .card-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.player .card .card-header h3 {
+	margin-top: 10px;
+	margin-left: 5px;
+	font-size: 1rem;
+	
+}
+
+.player .card .card-header ion-icon {
+	background-color: #333;
+	color: white;
+	border-radius: 500px;
+	padding: 10px;
+}
+
+.info-panal {
+	position: fixed;
+	top: 10vh;
+	left: 20px;
+	background-color: #f2e3c6;
+	color: #e6324b;
+	padding: 10px;
+	border-radius: 15px;
+}
+
+.info-panal p {
+	margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .player .card .card-header ion-icon {
+		display: none;
+	}
+
+	.player .card .card-header h3{
+		font-size: .8rem;
+	}
+
+	.info-panal {
+		display: none;
+	}
 }

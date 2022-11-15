@@ -3,6 +3,7 @@ import Board from "./Board";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { IsTurn, IsWinner } from "./Connect4Utility.js";
 import Player from "./Player";
+import Info from "./Info";
 
 const game_id = document.getElementById("game_id").textContent;
 const game_link = document.getElementById("game_link").textContent;
@@ -27,6 +28,7 @@ class App extends React.Component {
       this.setState({
         board: dataFromServer.board,
         player: dataFromServer.player,
+        opponentConnected: dataFromServer.opponentConnected,
       });
     };
     client.onclose = () => {
@@ -73,6 +75,11 @@ class App extends React.Component {
     }
     return (
       <div>
+        <Info
+          isTurn={IsTurn(this.state.board, this.state.player)}
+          opponentConnected={this.state.opponentConnected}
+          player={this.state.player}
+        />
         <Player
           isTurn={IsTurn(this.state.board, 1)}
           isPlayer1={true}

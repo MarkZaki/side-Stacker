@@ -32,17 +32,26 @@ export default function Player(props) {
   let moveDescription = null;
   if (props.isTurn && props.areYouThisPlayer) {
     moveDescription = <h4> Your Turn </h4>;
-  }
-
-  if (!props.isTurn && !props.areYouThisPlayer) {
+  } else {
     moveDescription = <h4> Their Turn </h4>;
   }
 
   return (
     <div className="player">
-      {icon}
-      {playerTitle}
-      {moveDescription}
+      <div
+        className="card"
+        style={{
+          background: props.areYouThisPlayer ? "#f1c40f" : "#ecf0f1",
+          boxShadow: props.isTurn
+            ? "rgba(255, 255, 255, 0.397) 0px 15px 29px 0px"
+            : null,
+        }}
+      >
+        <div class="card-header">
+          {icon}
+          {playerTitle}
+        </div>
+      </div>
     </div>
   );
 }
