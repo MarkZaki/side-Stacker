@@ -41,6 +41,8 @@ class App extends React.Component {
         board: dataFromServer.board,
         player: dataFromServer.player,
         opponentConnected: dataFromServer.opponentConnected,
+        gameStatus: dataFromServer.game_status,
+        winner: dataFromServer.winner,
       });
     };
     client.onclose = () => {
@@ -103,15 +105,16 @@ class App extends React.Component {
       return <h1>waiting to connect</h1>;
     }
 
-    const isWinner = IsWinner(this.state.board);
-    let text;
-    if (isWinner === this.state.player) {
-      text = <Modal text={{ content: "You Won!", color: "green" }} />;
-    } else if (isWinner === 3) {
-      text = <Modal text={{ content: "It's a tie!", color: "orange" }} />;
-    } else if (isWinner !== 0) {
-      text = <Modal text={{ content: "You Lost!", color: "red" }} />;
-    }
+    // const isWinner = IsWinner(this.state.board);
+    // let text;
+    // if (isWinner === this.state.player) {
+    //   text = <Modal text={{ content: "You Won!", color: "green" }} />;
+    // } else if (isWinner === 3) {
+    //   text = <Modal text={{ content: "It's a tie!", color: "orange" }} />;
+    // } else if (isWinner !== 0) {
+    //   text = <Modal text={{ content: "You Lost!", color: "red" }} />;
+    // }
+
     return (
       <div>
         <Info
@@ -135,7 +138,17 @@ class App extends React.Component {
           areYouThisPlayer={2 === this.state.player}
         />
         <ToastContainer />
-        {text}
+        {this.state.gameStatus && (
+          <Modal
+            text={{
+              content:
+                this.state.player === this.state.winner
+                  ? "You Won!"
+                  : "You Lost!",
+              color: this.state.player === this.state.winner ? "green" : "red",
+            }}
+          />
+        )}
       </div>
     );
   }
