@@ -10,61 +10,6 @@
   2 -> player 2 wins
   3 -> tie
 */
-export function IsWinner(board) {
-  const vertical = {
-    colStart: 0,
-    col: 7,
-    row: 3,
-    colIncrement: [0, 0, 0],
-    rowIncrement: [1, 2, 3],
-  };
-  const horizontal = {
-    colStart: 0,
-    col: 4,
-    row: 6,
-    colIncrement: [1, 2, 3],
-    rowIncrement: [0, 0, 0],
-  };
-  const downRightDiagonal = {
-    colStart: 0,
-    col: 4,
-    row: 3,
-    colIncrement: [1, 2, 3],
-    rowIncrement: [1, 2, 3],
-  };
-
-  const downLeftDiagonal = {
-    colStart: 3,
-    col: 7,
-    row: 3,
-    colIncrement: [-1, -2, -3],
-    rowIncrement: [1, 2, 3],
-  };
-
-  const checks = [vertical, horizontal, downRightDiagonal, downLeftDiagonal];
-  for (const check of checks) {
-    for (let col = check.colStart; col < check.col; col++) {
-      for (let row = 0; row < check.row; row++) {
-        const possibleWinner = CheckWinner(
-          board[col][row],
-          board[col + check.colIncrement[0]][row + check.rowIncrement[0]],
-          board[col + check.colIncrement[1]][row + check.rowIncrement[1]],
-          board[col + check.colIncrement[2]][row + check.rowIncrement[2]]
-        );
-        if (possibleWinner !== 0) {
-          return possibleWinner;
-        }
-      }
-    }
-  }
-
-  //if all spaces filled up then tie
-  const isBoardFull = board.filter((col) => !IsColumnFull(col)).length == 0;
-  if (isBoardFull) {
-    return 3;
-  }
-  return 0;
-}
 
 //true if column filled up
 export function IsColumnFull(col) {

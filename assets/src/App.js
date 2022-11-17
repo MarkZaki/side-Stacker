@@ -1,7 +1,7 @@
 import React from "react";
 import Board from "./Board";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-import { IsTurn, IsWinner } from "./Connect4Utility.js";
+import { IsTurn } from "./Connect4Utility.js";
 import Player from "./Player";
 import Info from "./Info";
 import { ToastContainer, toast } from "react-toastify";
@@ -39,10 +39,10 @@ class App extends React.Component {
       const dataFromServer = JSON.parse(message.data);
       this.setState({
         board: dataFromServer.board,
-        player: dataFromServer.player,
+        player: parseInt(dataFromServer.player.toString()),
         opponentConnected: dataFromServer.opponentConnected,
         gameStatus: dataFromServer.game_status,
-        winner: dataFromServer.winner,
+        winner: parseInt(dataFromServer.winner),
       });
     };
     client.onclose = () => {
@@ -61,10 +61,7 @@ class App extends React.Component {
 
   SendMove(cord) {
     console.log(cord);
-    if (
-      IsTurn(this.state.board, this.state.player) &&
-      IsWinner(this.state.board) == 0
-    ) {
+    if (IsTurn(this.state.board, this.state.player)) {
       if (cord.column === 0 || cord.column === 6) {
         const data = {
           row: cord.row,
@@ -105,16 +102,6 @@ class App extends React.Component {
       return <h1>waiting to connect</h1>;
     }
 
-    // const isWinner = IsWinner(this.state.board);
-    // let text;
-    // if (isWinner === this.state.player) {
-    //   text = <Modal text={{ content: "You Won!", color: "green" }} />;
-    // } else if (isWinner === 3) {
-    //   text = <Modal text={{ content: "It's a tie!", color: "orange" }} />;
-    // } else if (isWinner !== 0) {
-    //   text = <Modal text={{ content: "You Lost!", color: "red" }} />;
-    // }
-
     return (
       <div>
         <Info
@@ -142,10 +129,13 @@ class App extends React.Component {
           <Modal
             text={{
               content:
-                this.state.player === this.state.winner
+                parseInt(this.state.player) == parseInt(this.state.winner)
                   ? "You Won!"
                   : "You Lost!",
-              color: this.state.player === this.state.winner ? "green" : "red",
+              color:
+                parseInt(this.state.player) == parseInt(this.state.winner)
+                  ? "green"
+                  : "red",
             }}
           />
         )}
