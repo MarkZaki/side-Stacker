@@ -2,13 +2,21 @@
 import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
+
+from the_game.Connect4Utility import check_winner
 from .models import Connect4Game
 
 user_id_string = 'user_id'
 
 class Connect4Consumer(WebsocketConsumer):
 
-    def connect(self):      
+    def connect(self):
+        """
+        standard django channels connect nothing special here 
+        just connects to the game. checks the number of players 
+        and if 2 players are connected  no one else can connect 
+        has to match the user in the cookies 
+        """
         self.game_id = self.scope['url_route']['kwargs']['game_id']
         self.game_name = 'game_%s' % self.game_id #just string formatting
 
@@ -18,8 +26,7 @@ class Connect4Consumer(WebsocketConsumer):
             self.channel_name
         )
 
-        #TODO set boolean for players connected; but many connection can be made at same time
-        #set up/get game
+
         game = Connect4Game.objects.get(pk = self.game_id)
         if game.player1 == self.scope['cookies'][user_id_string]:
             self.PlayerNum = 1 
@@ -34,6 +41,9 @@ class Connect4Consumer(WebsocketConsumer):
         self._makeEveryoneUpdate()
 
     def disconnect(self, close_code):
+        """
+        standard channels disconnect function
+        """
         game = Connect4Game.objects.get(pk = self.game_id)
         if self.PlayerNum == 1:
             game.numPlayer1Connections -= 1
@@ -48,8 +58,9 @@ class Connect4Consumer(WebsocketConsumer):
             self.channel_name
         )
 
-    #tells everone in group to update
+    
     def _makeEveryoneUpdate(self):
+        "channels group  makes sure that everybody has the same messages and updates etc."
         async_to_sync(self.channel_layer.group_send)(
             self.game_name,
             {
@@ -59,6 +70,12 @@ class Connect4Consumer(WebsocketConsumer):
 
     #recieve message from websocket
     def receive(self, text_data):
+        """
+        this is where we recieve the message from the websocet we then
+        have to try the move it is valid then we will check for a winner 
+        to see if the current player's move resulted in a win for any player 
+        NOTE a play can win on his/her turn or the other player's turn 
+        """
         print(text_data)
         text_data_json = json.loads(text_data)
         row  = text_data_json['row']
@@ -67,17 +84,32 @@ class Connect4Consumer(WebsocketConsumer):
         game = Connect4Game.objects.get(pk = self.game_id) 
         if not game.TryMove(player,row,side):
             print("Move was not allowed")
+        #used 1 and 2 instead of == player cause you can win on your opponent's turn
+        if check_winner (game.game_state,player) != 0 :
+            game.game_complete = True
+            game.game_winner = player
+            game.save()
+        else:
+            print ('no winner')
         self._makeEveryoneUpdate() 
 
-    # Receive message from other player
+
     def update_message(self, event):
+        """
+        channel calles it on update
+        """
         self._sendToClient()
 
     def _sendToClient(self):
+        """
+        will get the game object and send to the React app
+        """
         game = Connect4Game.objects.get(pk = self.game_id)
         gameToSend = {}
         gameToSend['board'] = game.game_state
         gameToSend['player'] = self.PlayerNum
+        gameToSend['game_status'] = game.game_complete
+        gameToSend['winner'] = game.game_winner
         opponentConnected = False
         if self.PlayerNum == 1:
             opponentConnected = game.numPlayer2Connections >= 1
