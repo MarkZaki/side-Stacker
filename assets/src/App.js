@@ -39,10 +39,10 @@ class App extends React.Component {
       const dataFromServer = JSON.parse(message.data);
       this.setState({
         board: dataFromServer.board,
-        player: dataFromServer.player,
+        player: parseInt(dataFromServer.player.toString()),
         opponentConnected: dataFromServer.opponentConnected,
         gameStatus: dataFromServer.game_status,
-        winner: dataFromServer.winner,
+        winner: parseInt(dataFromServer.winner),
       });
     };
     client.onclose = () => {
@@ -142,10 +142,13 @@ class App extends React.Component {
           <Modal
             text={{
               content:
-                this.state.player === this.state.winner
+                parseInt(this.state.player) == parseInt(this.state.winner)
                   ? "You Won!"
                   : "You Lost!",
-              color: this.state.player === this.state.winner ? "green" : "red",
+              color:
+                parseInt(this.state.player) == parseInt(this.state.winner)
+                  ? "green"
+                  : "red",
             }}
           />
         )}
