@@ -3,7 +3,7 @@ import React from "react";
 /*
 props expected:
  {
-    "isTurn: boolean,
+    "is_turn: boolean,
     "isPlayer1": boolean,
     "areYouThisPlayer", boolean,
 }
@@ -30,7 +30,7 @@ export default function Player(props) {
   }
 
   let moveDescription = null;
-  if (props.isTurn && props.areYouThisPlayer) {
+  if (props.is_turn && props.areYouThisPlayer) {
     moveDescription = <h4> Your Turn </h4>;
   } else {
     moveDescription = <h4> Their Turn </h4>;
@@ -42,7 +42,7 @@ export default function Player(props) {
         className="card"
         style={{
           background: props.areYouThisPlayer ? "#f1c40f" : "#ecf0f1",
-          boxShadow: props.isTurn
+          boxShadow: props.is_turn
             ? "rgba(255, 255, 255, 0.397) 0px 15px 29px 0px"
             : null,
         }}

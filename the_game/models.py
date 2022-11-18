@@ -1,7 +1,7 @@
 from django.db import models
 import jsonfield
 import numpy as np
-from .Connect4Utility import IsTurn , check_winner
+from .game_utility import is_turn , check_winner
 
 # PlayerKeyMaxLength = 50
 
@@ -24,8 +24,8 @@ class Connect4Game(models.Model):
     
 
 
-    def TryMove(self, player, row,side):
-        if IsTurn(self, player):
+    def try_move(self, player, row,side):
+        if is_turn(self, player):
             row_value = self.game_state[row] #ex row 0 [0,0,0,0,0,0,0] has 7 0s which are cols
             if side == 'Right':
                 index = -1
@@ -48,7 +48,7 @@ class Connect4Game(models.Model):
                         index += 1
                         break
                 if index == -1:
-                    print("row is full")
+                    #row is full
                     return False
                 row_value.pop(elem_number)
                 row_value.insert(0,player )

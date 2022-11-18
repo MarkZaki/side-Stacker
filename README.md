@@ -1,6 +1,8 @@
-# connect 4
+# side stacker game
 
-one app in use and it is called the_game
+This is essentially connect-four, but the pieces stack on either side of the board instead of bottom-up.
+Two players see a board, which is a grid of 7 rows and 7 columns. They take turn adding pieces to a row, on one of the sides. The pieces stack on top of each other, and the game ends when there are no spaces left available, or when a player has four consecutive pieces on a diagonal, column, or row.
+
 
 ## Installation
 
@@ -14,15 +16,15 @@ docker compose up
 
 for normal installation a venv is preferred so all you need to do is to make sure you have python 3.10 installed
 
-clone this repostory and run the following
+clone this repository and run the following in the base dir
 
 ```bash
-python -m venv venv
+python -m venv <venv_name>
 ```
 
 activate your venv
 
-windows
+#### windows
 
 ```bash
 cd venv/Scripts/
@@ -33,12 +35,12 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
-
 ```bash
 ./activate
 ```
 
-on mac or linux
+
+#### mac or linux
 
 ```bash
 source venv/bin/activate
@@ -51,19 +53,37 @@ pip install -r requirments.txt
 ```
 
 ```bash
-python manage.py runserver 127.0.0.1:8000
+python manage.py runserver
 ```
 
 ## usage and testing
+for testing run the following command 
 
-you can test with these endpoints and they have descriptions of the fields as well if you need a data representation you can also refer to [the admin panel](http://127.0.0.1:8000/admin)
+```bash
+python manage.py test
+```
+
+result should look like 
+
+```bash
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.008s
+
+OK
+```
 
 ## storage
 
-postgres and the DB name is "connect4"
-if you wish to change the name please refre to the config dir in a file called settings.py line 100
+this project uses PostgreSQL for its DB because its utilizing JSONField
+so make sure you have a running PostgreSQL server with 
 
-## to Install Front end
+create a DB 
+
+add your DB information to the .env file
+along with your secret please check example .env file
+
+## to Install the Front end
 
 first you have to run
 
@@ -83,6 +103,6 @@ to compile the frontend code
 
 then go to 127.0.0.1:8000 and everything should be working Correctly
 
+## for more infor please check the DOC.MD file 
 ## License
-
 [by khaled yasser](kikokhaled.u@gmail.com)

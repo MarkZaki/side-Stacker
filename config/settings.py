@@ -16,14 +16,13 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-env_file_path = os.path.join(BASE_DIR, '..env')
+env_file_path = os.path.join(BASE_DIR, '.env')
 if os.path.exists(env_file_path):
     environ.Env.read_env(env_file=env_file_path)
     
+SECRET_KEY = env('SECRET_KEY')
 
-SECRET_KEY = "django-insecure-8b&4gj4x%@(v0h%8^#1tgm$$s-80rih5937318ntcyzdb4fh+6"
-
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -39,10 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # libraries
-    # 'channels',
-    'rest_framework',
-    'rest_framework.authtoken',
     # apps
     'the_game',
     
@@ -59,16 +54,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
-    'DEFAULT_AUTHENTICATION_CLASSES':
-    ['rest_framework.authentication.TokenAuthentication', ],
-    'DEFAULT_PERMISSION_CLASSES':
-    ['rest_framework.permissions.IsAuthenticated', ]
-}
 
 
 TEMPLATES = [
@@ -96,12 +81,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'connect4',
-        'USER': 'postgres',
-        'PASSWORD': 'Qazwsx00',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': env('DB_ENGINE'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD':env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 
@@ -145,10 +130,8 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
 # channels
 
 ASGI_APPLICATION = "config.asgi.application"

@@ -1,7 +1,7 @@
 import React from "react";
 import Board from "./Board";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-import { IsTurn } from "./Connect4Utility.js";
+import { is_turn } from "./game_utility.js";
 import Player from "./Player";
 import Info from "./Info";
 import { ToastContainer, toast } from "react-toastify";
@@ -61,7 +61,7 @@ class App extends React.Component {
 
   SendMove(cord) {
     console.log(cord);
-    if (IsTurn(this.state.board, this.state.player)) {
+    if (is_turn(this.state.board, this.state.player)) {
       if (cord.column === 0 || cord.column === 6) {
         const data = {
           row: cord.row,
@@ -105,12 +105,12 @@ class App extends React.Component {
     return (
       <div>
         <Info
-          isTurn={IsTurn(this.state.board, this.state.player)}
+          is_turn={is_turn(this.state.board, this.state.player)}
           opponentConnected={this.state.opponentConnected}
           player={this.state.player}
         />
         <Player
-          isTurn={IsTurn(this.state.board, 1)}
+          is_turn={is_turn(this.state.board, 1)}
           isPlayer1={true}
           areYouThisPlayer={1 === this.state.player}
         />
@@ -120,7 +120,7 @@ class App extends React.Component {
           SendMove={this.SendMove}
         />
         <Player
-          isTurn={IsTurn(this.state.board, 2)}
+          is_turn={is_turn(this.state.board, 2)}
           isPlayer1={false}
           areYouThisPlayer={2 === this.state.player}
         />

@@ -3,7 +3,7 @@ import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
-from the_game.Connect4Utility import check_winner
+from the_game.game_utility import check_winner
 from .models import Connect4Game
 
 user_id_string = 'user_id'
@@ -76,23 +76,27 @@ class Connect4Consumer(WebsocketConsumer):
         to see if the current player's move resulted in a win for any player 
         NOTE a play can win on his/her turn or the other player's turn 
         """
-        print(text_data)
         text_data_json = json.loads(text_data)
         row  = text_data_json['row']
         side = text_data_json['side']
         player = text_data_json['player'] 
         game = Connect4Game.objects.get(pk = self.game_id) 
-        if not game.TryMove(player,row,side):
-            print("Move was not allowed")
-        #used 1 and 2 instead of == player cause you can win on your opponent's turn
-        if check_winner (game.game_state,player) != 0 :
+        if not game.try_move(player,row,side):
+            pass
+        result = check_winner (game.game_state)
+        if result != 0  and result !=3 :
             game.game_complete = True
             game.game_winner = player
             game.save()
+        elif result == 3:
+            game.game_complete = True
+            game.game_winner = 3
+            game.save()
+            #tie
         else:
-            print ('no winner')
+            pass
+        #used 1 and 2 instead of == player cause you can win on your opponent's turn
         self._makeEveryoneUpdate() 
-
 
     def update_message(self, event):
         """

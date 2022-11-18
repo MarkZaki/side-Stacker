@@ -39,7 +39,7 @@ export function CheckWinner(firstPiece, secondPiece, thirdPiece, forthPiece) {
   input: normal connect 4 board defined above, player -> 1 or 2
   output: true if it is the players turn
 */
-export function IsTurn(board, player) {
+export function is_turn(board, player) {
   //TODO No your turn if game is over
   let arrayOfSum = board.map((arr) => arr.reduce(countNonZeros, 0)); //0 makes it start at 0
   let sum = arrayOfSum.reduce(sumReducer);

@@ -1,6 +1,6 @@
 import React from "react";
 import Row from "./Row";
-import { IsTurn } from "./Connect4Utility";
+import { is_turn } from "./game_utility";
 
 function Board(props) {
   let counter = -1;
@@ -9,7 +9,7 @@ function Board(props) {
     return (
       <Row
         player={props.player}
-        isTurn={IsTurn(props.board, props.player)}
+        is_turn={is_turn(props.board, props.player)}
         value={col}
         key={counter}
         rowNum={counter}
