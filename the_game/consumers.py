@@ -114,6 +114,8 @@ class Connect4Consumer(WebsocketConsumer):
         gameToSend['player'] = self.PlayerNum
         gameToSend['game_status'] = game.game_complete
         gameToSend['winner'] = game.game_winner
+        gameToSend['player1name'] = game.player1name
+        gameToSend['player2name'] = game.player2name
         opponentConnected = False
         if self.PlayerNum == 1:
             opponentConnected = game.numPlayer2Connections >= 1

@@ -17,6 +17,8 @@ class Connect4Game(models.Model):
     game_state = models.JSONField(default =initilizeBoard)
     player1 = models.CharField(max_length = 100, default='')
     player2 = models.CharField(max_length = 100, default='')
+    player1name = models.CharField(max_length = 256, default='')
+    player2name = models.CharField(max_length = 256, default='')
     numPlayer1Connections = models.IntegerField(default=0)
     numPlayer2Connections = models.IntegerField(default=0)
     game_complete = models.BooleanField(default=False) 

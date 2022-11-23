@@ -36,6 +36,8 @@ def creategame(request):
             game.player1 = userId
         if playerNum == '2':
             game.player2 = userId
+        playerName = request.POST["name"]
+        game.player1name = playerName
         game.save()
         response = redirect('game', game_id = game.id)
         SetSessionid(response, userId)
@@ -43,6 +45,23 @@ def creategame(request):
     else:
         raise Http404("Page not available")
     
+
+def joingame(request):
+    """
+    Joining a Game
+    """
+    if request.method == 'POST':
+        name = request.POST['name']
+        gameID = request.POST['id']    
+        game = Connect4Game.objects.get(id=gameID)
+        if not game:
+          raise Http404("Page not available")
+        game.player2name = name
+        game.save()
+        response = redirect('game', game_id = game.id)
+        return response  
+    else:
+        raise Http404("Page not available")
 
 def game(request, game_id):
     '''

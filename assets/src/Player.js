@@ -18,7 +18,7 @@ export default function Player(props) {
         className="icon-person icon-player1"
       ></ion-icon>
     );
-    playerTitle = <h3 className="player-title">Player 1</h3>;
+    playerTitle = <h3 className="player-title">{props.name}</h3>;
   } else {
     icon = (
       <ion-icon
@@ -26,7 +26,7 @@ export default function Player(props) {
         className="icon-person icon-player2"
       ></ion-icon>
     );
-    playerTitle = <h3 className="player-title"> Player 2</h3>;
+    playerTitle = <h3 className="player-title">{props.name}</h3>;
   }
 
   let moveDescription = null;

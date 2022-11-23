@@ -43,6 +43,8 @@ class App extends React.Component {
         opponentConnected: dataFromServer.opponentConnected,
         gameStatus: dataFromServer.game_status,
         winner: parseInt(dataFromServer.winner),
+        player1name: dataFromServer.player1name,
+        player2name: dataFromServer.player2name,
       });
     };
     client.onclose = () => {
@@ -108,10 +110,12 @@ class App extends React.Component {
           is_turn={is_turn(this.state.board, this.state.player)}
           opponentConnected={this.state.opponentConnected}
           player={this.state.player}
+          id={game_id}
         />
         <Player
           is_turn={is_turn(this.state.board, 1)}
           isPlayer1={true}
+          name={this.state.player1name}
           areYouThisPlayer={1 === this.state.player}
         />
         <Board
@@ -122,6 +126,11 @@ class App extends React.Component {
         <Player
           is_turn={is_turn(this.state.board, 2)}
           isPlayer1={false}
+          name={
+            this.state.player2name.length > 0
+              ? this.state.player2name
+              : "Joining..."
+          }
           areYouThisPlayer={2 === this.state.player}
         />
         <ToastContainer />
